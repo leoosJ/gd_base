@@ -10,10 +10,10 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableTransactionManagement // 开启事务管理
 @EnableSpringUtil
 @EnableSwagger2
-public class TravelApplication {
+public class GdBaseApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(TravelApplication.class, args);
+        SpringApplication.run(GdBaseApplication.class, args);
     }
 
 }

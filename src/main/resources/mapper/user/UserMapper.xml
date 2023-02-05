@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.gd.base.module.user.mapper.UserMapper">
+
+    <sql id="userColumns">
+        a.ID AS "id",
+        a.USER_NAME AS "userName",
+        a.ACCOUNT AS "account",
+        a.PASSWORD AS "password",
+        a.SEX AS "sex",
+        a.MOBILE AS "mobile",
+        a.ID_CARD AS "idCard",
+        a.EMAIL AS "email",
+        a.USER_PHOTO AS "userPhoto",
+        a.ADDRESS AS "address",
+        a.USER_TYPE AS "userType",
+        a.CREATE_ID AS "createId",
+        a.CREATE_DATE AS "createDate",
+        a.UPDATE_ID AS "updateId",
+        a.UPDATE_DATE AS "updateDate",
+        a.DEL_FLAG AS "delFlag"
+    </sql>
+
+    <select id="get" resultType="com.gd.base.module.user.entity.User">
+        SELECT
+        <include refid="userColumns"/>
+        FROM user a
+        WHERE a.ID = #{id}
+    </select>
+
+    <select id="findUserByAccount" resultType="com.gd.base.module.user.entity.User">
+        SELECT
+        <include refid="userColumns"/>
+        FROM user a
+        WHERE a.ACCOUNT = #{account}
+        AND a.DEL_FLAG = '0'
+    </select>
+
+    <select id="findList" resultType="com.gd.base.module.user.entity.User">
+        SELECT
+        <include refid="userColumns"/>
+        FROM user a
+        <where>
+            a.DEL_FLAG = '0'
+            <if test="id != null and id != ''">
+                AND a.ID = #{id}
+            </if>
+            <if test="userName != null and userName != ''">
+                AND a.USER_NAME LIKE CONCAT('%', #{userName}, '%')
+            </if>
+            <if test="mobile != null and mobile != ''">
+                AND a.MOBILE = #{mobile}
+            </if>
+            <if test="sex != null and sex != ''">
+                AND a.SEX = #{sex}
+            </if>
+            <if test="idCard != null and idCard != ''">
+                AND a.ID_CARD LIKE CONCAT('%', #{idCard}, '%')
+            </if>
+        </where>
+    </select>
+
+    <insert id="insert">
+        INSERT INTO user
+        (
+        ID,
+        USER_NAME,
+        ACCOUNT,
+        PASSWORD,
+        SEX,
+        MOBILE,
+        ID_CARD,
+        EMAIL,
+        USER_PHOTO,
+        ADDRESS,
+        USER_TYPE,
+        CREATE_ID,
+        CREATE_DATE,
+        UPDATE_ID,
+        UPDATE_DATE,
+        DEL_FLAG
+        )
+        VALUES
+        (
+        #{id},
+        #{userName},
+        #{account},
+        #{password},
+        #{sex},
+        #{mobile},
+        #{idCard},
+        #{email},
+        #{userPhoto},
+        #{address},
+        #{userType},
+        #{createId},
+        #{createDate},
+        #{updateId},
+        #{updateDate},
+        #{delFlag}
+        )
+    </insert>
+
+    <update id="update">
+        UPDATE user
+        <set>
+            <if test="id != null and id != ''">
+                ID = #{id},
+            </if>
+            <if test="userName != null and userName != ''">
+                USER_NAME = #{userName},
+            </if>
+            <if test="account != null and account != ''">
+                ACCOUNT = #{account},
+            </if>
+            <if test="password != null and password != ''">
+                PASSWORD = #{password},
+            </if>
+            <if test="sex != null and sex != ''">
+                SEX = #{sex},
+            </if>
+            <if test="mobile != null and mobile != ''">
+                MOBILE = #{mobile},
+            </if>
+            <if test="idCard != null and idCard != ''">
+                ID_CARD = #{idCard},
+            </if>
+            <if test="email != null and email != ''">
+                EMAIL = #{email},
+            </if>
+            <if test="userPhoto != null and userPhoto != ''">
+                USER_PHOTO = #{userPhoto},
+            </if>
+            <if test="address != null and address != ''">
+                ADDRESS = #{address},
+            </if>
+            <if test="userType != null and userType != ''">
+                USER_TYPE = #{userType},
+            </if>
+            <if test="createId != null and createId != ''">
+                CREATE_ID = #{createId},
+            </if>
+            <if test="createDate != null">
+                CREATE_DATE = #{createDate},
+            </if>
+            <if test="updateId != null and updateId != ''">
+                UPDATE_ID = #{updateId},
+            </if>
+            <if test="updateDate != null">
+                UPDATE_DATE = #{updateDate},
+            </if>
+            <if test="delFlag != null and delFlag != ''">
+                DEL_FLAG = #{delFlag}
+            </if>
+        </set>
+       WHERE ID = #{id}
+    </update>
+
+    <delete id="delete">
+        DELETE FROM user
+        WHERE ID = #{id}
+    </delete>
+
+    <update id="deleteByLogic">
+        UPDATE user
+        SET DEL_FLAG = '1'
+        WHERE ID = #{id}
+    </update>
+</mapper>

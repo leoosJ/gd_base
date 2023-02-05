@@ -1,0 +1,36 @@
+server:
+  port : 8081
+
+spring:
+  #数据库
+  datasource:
+    name : project
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url : jdbc:mysql://127.0.0.1:3306/base?characterEncoding=utf8&useSSL=false&serverTimezone=UTC&rewriteBatchedStatements=true
+    username : root
+    password: password
+
+  #循环依赖
+  main:
+    allow-circular-references: true
+
+  #swagger
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+
+mybatis:
+  mapper-locations: classpath*:mapper/*/*.xml
+  configuration:
+    # 开启驼峰命名转换
+    map-underscore-to-camel-case: true
+    # 配置mybatis日志输出sql
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+# 文件存储路径
+files:
+  upload:
+    path: D:/graduation_design/travel/src/main/resources/files/
+  download:
+    url: http://localhost:8081/file/download/
+

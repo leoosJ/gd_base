@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.gd.base.module.dict.mapper.DictMapper">
+
+    <sql id="dictColumns">
+        a.DICT_TYPE AS "dictType",
+        a.DICT_VALUE AS "dictValue",
+        a.DICT_LABEL AS "dictLabel"
+    </sql>
+
+    <select id="getLabelByTypeAndValue" resultType="java.lang.String">
+        SELECT
+        a.DICT_LABEL AS "dictLabel"
+        FROM sys_dict a
+        WHERE a.DICT_TYPE = #{dictType}
+        AND a.DICT_VALUE = #{dictValue}
+    </select>
+
+</mapper>
